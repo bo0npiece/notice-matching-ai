@@ -2,6 +2,10 @@ fastapi>=0.115,<1
 uvicorn>=0.34,<1
 httpx>=0.28,<1
 python-dotenv>=1,<2
+PyYAML>=6,<7
+# 이미지 업로드(Step 5)
 python-multipart>=0.0.20,<1
 Pillow>=11,<13
+# 응답 JSON 검증용 안전망(Step 2)
 jsonschema>=4.23,<5
+numpy>=1.26,<3

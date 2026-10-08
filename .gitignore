@@ -1,6 +1,9 @@
 .venv/
 .env
-data/
+# data/ 는 실행 중 생기는 로그·캐시. 공고 인덱스만 커밋
+data/*
+!data/notices.json
+!data/notices.mock.json
 __pycache__/
 .pytest_cache/
 *.pyc
