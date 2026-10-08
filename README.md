@@ -115,3 +115,18 @@
     - [ ]  데모용 공고 데이터 소스 후보 정리 (온통청년, 학교 장학 공지 등)
     - [ ]  FastAPI 엔드포인트 뼈대: /profile, /recommend, /explain, /ask, /notice/upload
     - [ ]  사전 코드 반입 허용 여부 운영진 확인
+
+---
+
+## 백엔드 실행 (FastAPI + HyperCLOVA X)
+
+```powershell
+powershell -ExecutionPolicy Bypass -File scripts\start.ps1   # venv·패키지·.env 준비 후 http://localhost:8000
+.venv\Scripts\python.exe -m pytest -q                         # 테스트
+```
+
+- 기본은 `MOCK_MODE=1` (AI 호출 없이 `customize/samples/` 예시 응답, 인덱스는 `data/notices.mock.json`)
+- 실제 호출: `.env`에 `CLOVA_API_KEY` 입력, `MOCK_MODE=0` → `python scripts\build_index.py`로 `data/notices.json` 생성 후 서버 실행
+- 공고 원문: `customize/knowledge/notices/*.txt` (파일 1개 = 공고 1개), 프롬프트·스키마: `customize/prompts`, `customize/schemas`
+- API 명세와 요청·응답 예시: [API.md](API.md)
+- 리랭커·RAG Reasoning API 경로는 미확정(`app/hcx/client.py`의 TODO) → 그동안 코사인 점수 / HCX-007 Structured Outputs로 대체 동작
