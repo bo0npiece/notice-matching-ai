@@ -1,0 +1,51 @@
+{
+  "title": "[가상] 청년 IT 자격증 응시료 지원사업",
+  "org": "디지털청년센터",
+  "category": "정책",
+  "summary": [
+    "경기도 거주 만 19~34세 청년 대상",
+    "IT 자격증 응시료 최대 15만원 지원",
+    "11월 10일까지 온라인 신청"
+  ],
+  "benefit": "IT 자격증 응시료 최대 15만원",
+  "deadline": "2026-11-10",
+  "url": "https://example.com/it-cert",
+  "documents": [
+    "응시료 결제 영수증",
+    "주민등록초본"
+  ],
+  "conditions": [
+    {
+      "key": "region",
+      "type": "in",
+      "min": null,
+      "max": null,
+      "values": [
+        "경기"
+      ],
+      "value": null,
+      "text": "경기도 거주",
+      "source": "2항"
+    },
+    {
+      "key": "age",
+      "type": "range",
+      "min": 19,
+      "max": 34,
+      "values": null,
+      "value": null,
+      "text": "만 19세 ~ 만 34세",
+      "source": "2항"
+    },
+    {
+      "key": "etc",
+      "type": "text",
+      "min": null,
+      "max": null,
+      "values": null,
+      "value": null,
+      "text": "2026년 1월 1일 이후 응시한 자격증",
+      "source": "2항"
+    }
+  ]
+}

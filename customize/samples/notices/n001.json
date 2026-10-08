@@ -1,0 +1,86 @@
+{
+  "title": "[가상] 한빛미래재단 AI 인재 장학금",
+  "org": "한빛미래재단",
+  "category": "장학금",
+  "summary": [
+    "AI·SW 전공 2~4학년 재학생 대상",
+    "등록금 300만원 1회 지원 (30명)",
+    "10월 31일 18시까지 홈페이지 접수"
+  ],
+  "benefit": "등록금 300만원",
+  "deadline": "2026-10-31",
+  "url": "https://example.com/hanbit-ai",
+  "documents": [
+    "재학증명서",
+    "성적증명서",
+    "학자금 지원구간 통지서",
+    "자기소개서"
+  ],
+  "conditions": [
+    {
+      "key": "enrolled",
+      "type": "bool",
+      "min": null,
+      "max": null,
+      "values": null,
+      "value": true,
+      "text": "4년제 대학 재학 학부생",
+      "source": "2항"
+    },
+    {
+      "key": "school_year",
+      "type": "range",
+      "min": 2,
+      "max": 4,
+      "values": null,
+      "value": null,
+      "text": "2학년 이상 4학년 이하",
+      "source": "2항"
+    },
+    {
+      "key": "major",
+      "type": "in",
+      "min": null,
+      "max": null,
+      "values": [
+        "인공지능",
+        "컴퓨터공학",
+        "소프트웨어",
+        "데이터사이언스"
+      ],
+      "value": null,
+      "text": "AI·컴퓨터·SW·데이터 관련 전공",
+      "source": "2항"
+    },
+    {
+      "key": "gpa",
+      "type": "range",
+      "min": 3.0,
+      "max": null,
+      "values": null,
+      "value": null,
+      "text": "직전 학기 평점 3.0 이상",
+      "source": "2항"
+    },
+    {
+      "key": "income",
+      "type": "text",
+      "min": null,
+      "max": null,
+      "values": null,
+      "value": null,
+      "text": "학자금 지원구간 8구간 이하 우선 선발",
+      "source": "3항"
+    },
+    {
+      "key": "etc",
+      "type": "text",
+      "min": null,
+      "max": null,
+      "values": null,
+      "value": null,
+      "text": "타 기관 등록금 전액 장학금과 중복 불가",
+      "source": "3항"
+    }
+  ]
+}

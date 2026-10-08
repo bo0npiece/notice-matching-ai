@@ -1,0 +1,8 @@
+{
+  "type": "object",
+  "properties": {
+    "answer": {"type": "string"},
+    "used": {"type": "array", "items": {"type": "integer"}}
+  },
+  "required": ["answer", "used"]
+}

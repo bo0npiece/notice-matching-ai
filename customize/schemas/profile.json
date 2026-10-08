@@ -1,0 +1,17 @@
+{
+  "type": "object",
+  "properties": {
+    "age": {"anyOf": [{"type": "integer"}, {"type": "null"}]},
+    "region": {"anyOf": [{"type": "string"}, {"type": "null"}]},
+    "city": {"anyOf": [{"type": "string"}, {"type": "null"}]},
+    "school": {"anyOf": [{"type": "string"}, {"type": "null"}]},
+    "school_year": {"anyOf": [{"type": "integer"}, {"type": "null"}]},
+    "major": {"anyOf": [{"type": "string"}, {"type": "null"}]},
+    "enrolled": {"anyOf": [{"type": "boolean"}, {"type": "null"}]},
+    "living_alone": {"anyOf": [{"type": "boolean"}, {"type": "null"}]},
+    "income": {"anyOf": [{"type": "string"}, {"type": "null"}]},
+    "gpa": {"anyOf": [{"type": "number"}, {"type": "null"}]},
+    "interests": {"type": "array", "items": {"type": "string"}}
+  },
+  "required": ["age", "region", "city", "school", "school_year", "major", "enrolled", "living_alone", "income", "gpa", "interests"]
+}

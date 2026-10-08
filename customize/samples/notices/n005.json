@@ -1,0 +1,40 @@
+{
+  "title": "[가상] 제3회 생활 속 AI 아이디어 공모전",
+  "org": "미래기술포럼",
+  "category": "공모전",
+  "summary": [
+    "만 39세 이하 청년·대학(원)생 누구나",
+    "대상 500만원 등 총 8팀 시상",
+    "11월 30일까지 기획서 제출"
+  ],
+  "benefit": "대상 500만원 / 최우수 200만원 / 우수 50만원",
+  "deadline": "2026-11-30",
+  "url": "https://example.com/ai-idea",
+  "documents": [
+    "아이디어 기획서",
+    "참가 신청서",
+    "개인정보 수집·이용 동의서"
+  ],
+  "conditions": [
+    {
+      "key": "age",
+      "type": "range",
+      "min": null,
+      "max": 39,
+      "values": null,
+      "value": null,
+      "text": "만 39세 이하 청년 또는 대학(원)생",
+      "source": "2항"
+    },
+    {
+      "key": "etc",
+      "type": "text",
+      "min": null,
+      "max": null,
+      "values": null,
+      "value": null,
+      "text": "개인 또는 4명 이하 팀",
+      "source": "2항"
+    }
+  ]
+}

@@ -1,0 +1,18 @@
+{
+  "type": "object",
+  "properties": {
+    "results": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "index": {"type": "integer"},
+          "status": {"type": "string", "enum": ["pass", "fail", "unknown"]},
+          "reason": {"type": "string"}
+        },
+        "required": ["index", "status", "reason"]
+      }
+    }
+  },
+  "required": ["results"]
+}

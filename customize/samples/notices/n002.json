@@ -1,0 +1,62 @@
+{
+  "title": "[가상] 새봄장학회 경기 지역인재 생활비 장학금",
+  "org": "새봄장학회",
+  "category": "장학금",
+  "summary": [
+    "경기도 거주 만 19~29세 대학생 대상",
+    "월 30만원씩 6개월 생활비 지원",
+    "11월 15일까지 온라인 접수"
+  ],
+  "benefit": "월 30만원 × 6개월 (총 180만원)",
+  "deadline": "2026-11-15",
+  "url": "https://example.com/saebom-scholar",
+  "documents": [
+    "주민등록등본",
+    "재학증명서",
+    "건강보험료 납부확인서"
+  ],
+  "conditions": [
+    {
+      "key": "region",
+      "type": "in",
+      "min": null,
+      "max": null,
+      "values": [
+        "경기"
+      ],
+      "value": null,
+      "text": "경기도 주민등록 거주",
+      "source": "2항"
+    },
+    {
+      "key": "age",
+      "type": "range",
+      "min": 19,
+      "max": 29,
+      "values": null,
+      "value": null,
+      "text": "만 19세 이상 29세 이하",
+      "source": "2항"
+    },
+    {
+      "key": "enrolled",
+      "type": "bool",
+      "min": null,
+      "max": null,
+      "values": null,
+      "value": true,
+      "text": "국내 대학 재학생",
+      "source": "2항"
+    },
+    {
+      "key": "income",
+      "type": "text",
+      "min": null,
+      "max": null,
+      "values": null,
+      "value": null,
+      "text": "기준중위소득 150% 이하",
+      "source": "3항"
+    }
+  ]
+}

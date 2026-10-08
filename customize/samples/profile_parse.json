@@ -1,0 +1,15 @@
+{
+  "age": 22,
+  "region": "경기",
+  "city": "용인",
+  "school": null,
+  "school_year": 3,
+  "major": "인공지능",
+  "enrolled": true,
+  "living_alone": true,
+  "income": null,
+  "gpa": null,
+  "interests": [
+    "AI"
+  ]
+}

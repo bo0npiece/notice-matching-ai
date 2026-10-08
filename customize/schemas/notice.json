@@ -1,0 +1,31 @@
+{
+  "type": "object",
+  "properties": {
+    "title": {"type": "string"},
+    "org": {"type": "string"},
+    "category": {"type": "string", "enum": ["장학금", "정책", "공모전"]},
+    "summary": {"type": "array", "minItems": 3, "maxItems": 3, "items": {"type": "string"}},
+    "benefit": {"type": "string"},
+    "deadline": {"anyOf": [{"type": "string", "format": "date"}, {"type": "null"}]},
+    "url": {"type": "string"},
+    "documents": {"type": "array", "items": {"type": "string"}},
+    "conditions": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "key": {"type": "string", "enum": ["age", "region", "school_year", "major", "enrolled", "income", "gpa", "etc"]},
+          "type": {"type": "string", "enum": ["range", "in", "bool", "text"]},
+          "min": {"anyOf": [{"type": "number"}, {"type": "null"}]},
+          "max": {"anyOf": [{"type": "number"}, {"type": "null"}]},
+          "values": {"anyOf": [{"type": "array", "items": {"type": "string"}}, {"type": "null"}]},
+          "value": {"anyOf": [{"type": "boolean"}, {"type": "null"}]},
+          "text": {"type": "string"},
+          "source": {"type": "string"}
+        },
+        "required": ["key", "type", "min", "max", "values", "value", "text", "source"]
+      }
+    }
+  },
+  "required": ["title", "org", "category", "summary", "benefit", "deadline", "url", "documents", "conditions"]
+}

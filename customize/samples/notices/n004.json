@@ -1,0 +1,62 @@
+{
+  "title": "[가상] 서울 청년 취업역량 강화 바우처",
+  "org": "청년내일센터",
+  "category": "정책",
+  "summary": [
+    "서울 거주 만 19~39세 미취업 청년 대상",
+    "어학·자격증 등 200만원 바우처",
+    "11월 20일까지 신청"
+  ],
+  "benefit": "200만원 상당 교육 바우처",
+  "deadline": "2026-11-20",
+  "url": "https://example.com/seoul-voucher",
+  "documents": [
+    "주민등록초본",
+    "고용보험 자격이력 내역서",
+    "졸업(예정)증명서"
+  ],
+  "conditions": [
+    {
+      "key": "region",
+      "type": "in",
+      "min": null,
+      "max": null,
+      "values": [
+        "서울"
+      ],
+      "value": null,
+      "text": "서울특별시 거주",
+      "source": "2항"
+    },
+    {
+      "key": "age",
+      "type": "range",
+      "min": 19,
+      "max": 39,
+      "values": null,
+      "value": null,
+      "text": "만 19세 ~ 만 39세",
+      "source": "2항"
+    },
+    {
+      "key": "etc",
+      "type": "text",
+      "min": null,
+      "max": null,
+      "values": null,
+      "value": null,
+      "text": "미취업 상태 (고용보험 미가입)",
+      "source": "2항"
+    },
+    {
+      "key": "enrolled",
+      "type": "bool",
+      "min": null,
+      "max": null,
+      "values": null,
+      "value": false,
+      "text": "대학 재학생 제외 (졸업예정자 가능)",
+      "source": "3항"
+    }
+  ]
+}

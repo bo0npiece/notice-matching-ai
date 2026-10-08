@@ -1,0 +1,8 @@
+{
+  "results": [
+    {"index": 0, "status": "unknown", "reason": "[MOCK] 프로필 정보만으로는 판단 불가 → 관련 증빙 서류로 확인 필요"},
+    {"index": 1, "status": "pass", "reason": "[MOCK] 프로필과 공고 원문 기준으로 충족"},
+    {"index": 2, "status": "unknown", "reason": "[MOCK] 금액·소득 정보가 없어 확인 필요"},
+    {"index": 3, "status": "unknown", "reason": "[MOCK] 원문에 판단 기준이 명확하지 않아 확인 필요"}
+  ]
+}
