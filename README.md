@@ -115,6 +115,3 @@
     - [ ]  데모용 공고 데이터 소스 후보 정리 (온통청년, 학교 장학 공지 등)
     - [ ]  FastAPI 엔드포인트 뼈대: /profile, /recommend, /explain, /ask, /notice/upload
     - [ ]  사전 코드 반입 허용 여부 운영진 확인
-
-이번엔 fork 하고 만들라고 하는데 이미 이전에 다른 아이디어를 fork해서 만들었어. 
-이것도 같은 레퍼지토리의 LH02_backend file들을 pull 받아서 새로 파고 싶은데 어떻게 해야함?

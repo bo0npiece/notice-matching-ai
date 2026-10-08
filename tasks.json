@@ -1,0 +1,120 @@
+{
+  "summarize": {
+    "description": "긴 글을 요약하고 핵심 항목과 다음 행동을 반환",
+    "prompt": "입력 글을 요약하세요. 제공되지 않은 사실은 만들지 마세요. summary는 3문장 이내, key_points는 5개 이내, next_actions는 3개 이내로 작성하세요.",
+    "temperature": 0,
+    "max_tokens": 1024,
+    "example_input": "팀 회의에서 금요일까지 설문 결과를 모으고 토요일에 발표 자료를 완성하기로 했다. 담당자는 지민이다.",
+    "schema": {
+      "type": "object",
+      "properties": {
+        "summary": {"type": "string"},
+        "key_points": {"type": "array", "maxItems": 5, "items": {"type": "string"}},
+        "next_actions": {"type": "array", "maxItems": 3, "items": {"type": "string"}}
+      },
+      "required": ["summary", "key_points", "next_actions"],
+      "additionalProperties": false
+    },
+    "mock_output": {"summary": "[MOCK] 연결 확인용 요약 예시입니다.", "key_points": ["실제 입력을 분석한 결과가 아닙니다."], "next_actions": ["실제 실행은 MOCK_MODE=false로 전환하세요."]}
+  },
+  "classify": {
+    "description": "입력을 지정한 범주로 분류; schema의 enum을 주제에 맞게 수정",
+    "prompt": "입력을 문의, 불만, 제안, 기타 중 하나로 분류하고 이유를 설명하세요. confidence는 통계적으로 보정된 확률이 아닌 모델의 자체 판단 점수입니다.",
+    "temperature": 0,
+    "max_tokens": 512,
+    "example_input": "어제 주문한 물건이 아직 도착하지 않았어요. 배송 상태를 알려주세요.",
+    "schema": {
+      "type": "object",
+      "properties": {
+        "category": {"type": "string", "enum": ["문의", "불만", "제안", "기타"]},
+        "reason": {"type": "string"},
+        "confidence": {"type": "number", "minimum": 0, "maximum": 1}
+      },
+      "required": ["category", "reason", "confidence"],
+      "additionalProperties": false
+    },
+    "mock_output": {"category": "기타", "reason": "[MOCK] 분류 화면 연결 확인용 고정 예시입니다.", "confidence": 0}
+  },
+  "extract": {
+    "description": "비정형 글에서 이름·일정·장소·할 일을 구조화; 필드를 자유롭게 교체",
+    "prompt": "입력과 참고 자료에서 사람 이름, 날짜 표현, 장소, 할 일을 추출하세요. 원문에 없는 정보는 추론하지 마세요. 해당 항목이 없으면 빈 배열을 반환하세요.",
+    "temperature": 0,
+    "max_tokens": 1024,
+    "example_input": "지민과 수아가 10월 9일 오후 2시에 강남역에서 만나 발표를 연습하기로 했다.",
+    "schema": {
+      "type": "object",
+      "properties": {
+        "people": {"type": "array", "items": {"type": "string"}},
+        "dates": {"type": "array", "items": {"type": "string"}},
+        "places": {"type": "array", "items": {"type": "string"}},
+        "actions": {"type": "array", "items": {"type": "string"}}
+      },
+      "required": ["people", "dates", "places", "actions"],
+      "additionalProperties": false
+    },
+    "mock_output": {"people": [], "dates": [], "places": [], "actions": ["[MOCK] 정보 추출 연결 확인용 고정 예시"]}
+  },
+  "rewrite": {
+    "description": "글을 쉬운 말·공손한 말·대상 독자에 맞게 변환; context에 스타일 입력",
+    "prompt": "사용자 글의 사실과 의도를 보존하며 context에 지정한 독자와 말투에 맞게 고쳐 쓰세요. 지정이 없으면 쉽고 공손한 한국어로 작성하세요. rewritten과 changes를 반환하세요.",
+    "temperature": 0,
+    "max_tokens": 1024,
+    "example_input": "본 행사의 참가자는 사전 등록 절차를 필히 이행하여야 합니다.",
+    "schema": {
+      "type": "object",
+      "properties": {
+        "rewritten": {"type": "string"},
+        "changes": {"type": "array", "items": {"type": "string"}}
+      },
+      "required": ["rewritten", "changes"],
+      "additionalProperties": false
+    },
+    "mock_output": {"rewritten": "[MOCK] 화면 연결 확인용 문장입니다.", "changes": ["실제 입력을 변환하지 않았습니다."]}
+  },
+  "plan": {
+    "description": "조건에 맞는 실행 계획 생성; context에 시간·예산·사용자 제약 입력",
+    "prompt": "입력 목표와 context의 제약을 반영해 5단계 이내의 실천 계획을 작성하세요. 외부 가격, 운영 시간, 제도 등의 사실을 임의로 만들지 마세요. 확인이 필요한 조건은 assumptions에 쓰세요.",
+    "temperature": 0,
+    "max_tokens": 1536,
+    "example_input": "4명이 6시간 안에 해커톤 발표용 시제품을 완성하고 싶다.",
+    "schema": {
+      "type": "object",
+      "properties": {
+        "goal": {"type": "string"},
+        "steps": {"type": "array", "maxItems": 5, "items": {"type": "string"}},
+        "assumptions": {"type": "array", "items": {"type": "string"}}
+      },
+      "required": ["goal", "steps", "assumptions"],
+      "additionalProperties": false
+    },
+    "mock_output": {"goal": "[MOCK] 계획 화면 연결 확인", "steps": ["API 요청", "응답 표시"], "assumptions": ["고정 예시이며 실제 계획 생성 결과가 아닙니다."]}
+  },
+  "image_analyze": {
+    "description": "사진에서 관찰한 내용·읽힌 글자·다음 행동·불확실성을 반환",
+    "prompt": "이미지를 관찰해 질문에 답하세요. description은 보이는 사실만 쓰세요. visible_text는 실제 읽힌 글자만 쓰고 불분명한 부분을 만들어내지 마세요. suggestions는 관찰에 근거한 제안, uncertainties는 확인 불가능한 사항입니다.",
+    "temperature": 0,
+    "max_tokens": 1536,
+    "example_input": "이 안내문의 핵심 정보와 내가 해야 할 일을 정리해줘.",
+    "schema": {
+      "type": "object",
+      "properties": {
+        "description": {"type": "string"},
+        "visible_text": {"type": "array", "items": {"type": "string"}},
+        "suggestions": {"type": "array", "items": {"type": "string"}},
+        "uncertainties": {"type": "array", "items": {"type": "string"}}
+      },
+      "required": ["description", "visible_text", "suggestions", "uncertainties"],
+      "additionalProperties": false
+    },
+    "mock_output": {"description": "[MOCK] 이미지 업로드 연결 확인용 응답입니다.", "visible_text": [], "suggestions": [], "uncertainties": ["모의 실행에서는 이미지를 분석하지 않습니다."]}
+  },
+  "chat": {
+    "description": "짧은 대화; 이전 대화는 요청 history에 전달",
+    "prompt": "사용자의 질문에 명확하고 간결하게 답하세요. 모르는 내용은 모른다고 말하고 필요한 정보를 요청하세요.",
+    "temperature": 0.3,
+    "max_tokens": 1024,
+    "example_input": "해커톤 발표에서 서비스 가치를 어떻게 설명하면 좋을까?",
+    "schema": null,
+    "mock_output": "[MOCK] 채팅 연결 확인용 고정 응답입니다. 실제 대화는 MOCK_MODE=false로 실행하세요."
+  }
+}
