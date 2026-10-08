@@ -128,5 +128,6 @@ powershell -ExecutionPolicy Bypass -File scripts\start.ps1   # venv·패키지·
 - 기본은 `MOCK_MODE=1` (AI 호출 없이 `customize/samples/` 예시 응답, 인덱스는 `data/notices.mock.json`)
 - 실제 호출: `.env`에 `CLOVA_API_KEY` 입력, `MOCK_MODE=0` → `python scripts\build_index.py`로 `data/notices.json` 생성 후 서버 실행
 - 공고 원문: `customize/knowledge/notices/*.txt` (파일 1개 = 공고 1개), 프롬프트·스키마: `customize/prompts`, `customize/schemas`
+- 저장소: 공고 = `data/notices*.json` (JSON + numpy 검색), 사용자 프로필·관심 공고·서류 체크 = `data/app.sqlite3` (SQLite, 로그인 없는 익명 user_id)
 - API 명세와 요청·응답 예시: [API.md](API.md)
 - 리랭커·RAG Reasoning API 경로는 미확정(`app/hcx/client.py`의 TODO) → 그동안 코사인 점수 / HCX-007 Structured Outputs로 대체 동작

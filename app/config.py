@@ -47,6 +47,10 @@ class Settings:
         return self.data_dir / "usage_log.jsonl"
 
     @property
+    def db_path(self) -> Path:
+        return self.data_dir / "app.sqlite3"
+
+    @property
     def index_path(self) -> Path:
         # MOCK 벡터와 실제 벡터는 섞이면 안 되므로 파일 분리
         return self.data_dir / ("notices.mock.json" if self.mock else "notices.json")

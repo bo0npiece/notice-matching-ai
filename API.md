@@ -8,18 +8,20 @@
 
 ## 화면 흐름
 
+0. 첫 접속 시 `POST /users` → `user_id`를 `localStorage`에 저장 (로그인 없음). 이후 요청에 `user_id`를 같이 보냄
 1. 자기소개 입력 → `POST /profile` → 프로필 카드 (사용자가 고칠 수 있게)
 2. `POST /recommend` → 추천 카드 목록
 3. 카드 클릭 → `POST /explain` → 조건별 ✅❌❓ + 출처
 4. 질문 입력 → `POST /ask`
-5. 포스터 업로드 → `POST /notice/upload` → 다시 `/recommend` 하면 반영됨
-6. 토큰 대시보드 → `GET /usage`
+5. 관심 공고 저장 → `POST /users/{user_id}/saved`, 마감 타임라인·서류 체크리스트 → `GET /users/{user_id}/saved`
+6. 포스터 업로드 → `POST /notice/upload` → 다시 `/recommend` 하면 반영됨
+7. 토큰 대시보드 → `GET /usage`
 
 ## POST /profile
 
 ```json
-// 요청
-{"text": "용인 사는 22살 AI학과 3학년, 자취 중"}
+// 요청 (user_id를 주면 변환된 프로필을 그 사용자에게 저장까지 함)
+{"text": "용인 사는 22살 AI학과 3학년, 자취 중", "user_id": "d552affb0ee640cb8d9493f7ea8da71d"}
 // 응답 (모르는 값은 null)
 {"profile": {"age": 22, "region": "경기", "city": "용인", "school": null, "school_year": 3,
   "major": "인공지능", "enrolled": true, "living_alone": true, "income": null, "gpa": null,
@@ -32,6 +34,8 @@
 // 요청 (profile은 /profile 응답 그대로 또는 폼에서 직접 구성)
 {"profile": {"age": 22, "region": "경기", "city": "용인", "school_year": 3, "major": "인공지능", "enrolled": true},
  "top_k": 5}
+// 또는 저장된 프로필 사용 (profile과 user_id를 둘 다 주면 profile 우선)
+{"user_id": "d552affb0ee640cb8d9493f7ea8da71d", "top_k": 5}
 // 응답 (score 높은 순, 자격 미달(fail)·마감 지난 공고는 빠짐)
 {"query": "경기 용인 거주 22세 인공지능학과 3학년 재학생",
  "items": [{"id": "n002", "title": "[가상] 새봄장학회 경기 지역인재 생활비 장학금", "category": "장학금",
@@ -47,7 +51,7 @@
 ## POST /explain
 
 ```json
-// 요청
+// 요청 (profile 대신 "user_id"도 가능)
 {"profile": {...}, "notice_id": "n003"}
 // 응답
 {"notice_id": "n003", "title": "[가상] 청년 월세 지원사업", "category": "정책",
@@ -98,6 +102,32 @@ const res = await fetch(`${API}/notice/upload`, {method: "POST", body: fd});
   "conditions": [{"key": "region", "type": "in", "values": ["경기"], "text": "경기도 거주", "source": "2항", "...": "..."}],
   "chunks": [{"text": "...", "source": "2항"}], "origin": "upload"}}
 ```
+
+## 사용자 (SQLite `data/app.sqlite3`에 저장)
+
+| API | 요청 본문 | 응답 |
+|---|---|---|
+| `POST /users` | `{}` 또는 `{"profile": {...}}` | 201 `{"user_id", "profile", "saved_count", "created_at", "updated_at"}` |
+| `GET /users/{user_id}` | — | 위와 같음 |
+| `PUT /users/{user_id}/profile` | `{"profile": {...}}` (전체 교체) | 위와 같음 |
+| `GET /users/{user_id}/saved` | — | `{"items": [저장 공고 카드]}` 마감 임박순 |
+| `POST /users/{user_id}/saved` | `{"notice_id": "n002"}` (중복 저장해도 1개) | 201 `{"item": 저장 공고 카드}` |
+| `DELETE /users/{user_id}/saved/{notice_id}` | — | `{"ok": true}` |
+| `PUT /users/{user_id}/saved/{notice_id}/checklist` | `{"checked": ["재학증명서"]}` (체크된 서류 전체 목록) | `{"item": 저장 공고 카드}` |
+
+저장 공고 카드:
+
+```json
+{"notice_id": "n002", "title": "[가상] 새봄장학회 경기 지역인재 생활비 장학금", "category": "장학금",
+ "deadline": "2026-11-15", "dday": 38, "expired": false, "benefit": "월 30만원 × 6개월 (총 180만원)",
+ "url": "https://example.com/saebom-scholar",
+ "documents": [{"name": "주민등록등본", "checked": false}, {"name": "재학증명서", "checked": true},
+               {"name": "건강보험료 납부확인서", "checked": false}],
+ "doc_count": 3, "checked_count": 1, "saved_at": "2026-10-08T08:53:00+00:00", "missing": false}
+```
+
+- 정렬: 마감 임박순 → 마감일 없음 → 마감 지남(`expired: true`) → 인덱스에서 사라진 공고(`missing: true`)
+- 없는 user_id는 404 → 프론트는 `POST /users`로 새로 만들고 localStorage 갱신
 
 ## GET /notices, GET /notices/{id}
 

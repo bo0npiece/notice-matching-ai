@@ -11,7 +11,7 @@ from .config import Settings
 from .core import Core
 from .customize import CustomizeError
 from .hcx import HCXError
-from .routes import health, notice
+from .routes import health, notice, user
 
 log = logging.getLogger("notice")
 
@@ -53,12 +53,13 @@ def create_app(settings: Settings | None = None) -> FastAPI:
     app.add_middleware(
         CORSMiddleware,
         allow_origins=list(settings.cors_origins),
-        allow_methods=["GET", "POST"],
+        allow_methods=["GET", "POST", "PUT", "DELETE"],
         allow_headers=["Content-Type", "X-Team-Key"],
     )
 
     app.include_router(health.router)
     app.include_router(notice.router)
+    app.include_router(user.router)
     return app
 
 

@@ -5,6 +5,7 @@ from .config import Settings
 from .customize import Customize
 from .hcx import HCXClient
 from .services.index_service import NoticeIndex
+from .user_store import UserStore
 
 
 @dataclass
@@ -13,6 +14,7 @@ class Core:
     hcx: HCXClient
     customize: Customize
     index: NoticeIndex
+    users: UserStore
     explain_cache: dict = field(default_factory=dict)  # (profile hash, notice_id) → /explain 결과
 
     @classmethod
@@ -24,4 +26,5 @@ class Core:
             hcx=hcx,
             customize=Customize(settings.customize_dir),
             index=NoticeIndex(hcx, settings.index_path),
+            users=UserStore(settings.db_path),
         )
